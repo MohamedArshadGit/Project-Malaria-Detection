@@ -11,7 +11,6 @@ category = ['Uninfected', 'Parasitized']
 def prepare_image(image):
     # Convert the Image object to a NumPy array
     img_array = np.array(image)
-    # Convert from RGB to BGR as OpenCV uses BGR format by default
     img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR)
     img_array = img_array / 255.0
     new_array = cv2.resize(img_array, (224, 224))  # Resnet expects 224x224 images
@@ -22,7 +21,6 @@ def main():
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        # Read the uploaded image directly using cv2.imdecode
         image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
